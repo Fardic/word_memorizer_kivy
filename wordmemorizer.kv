@@ -20,7 +20,7 @@ WindowManager:
 <FullImage@Image>:
     canvas:
         Color:
-            rgb: (.2, .8, .8)
+            rgb: (1, 1, 1)
         Rectangle:
             texture: self.texture
             size: self.width, self.height
@@ -50,11 +50,11 @@ WindowManager:
             row_force_default: True
             row_default_height: dp(100)
             Labelc:
-                text: "[b]Word Memorizer[/b]"
+                text: "[color=008080][b]Word Memorizer[/b][/color]"
                 markup: True
                 size: self.texture_size
                 font_size: '30sp'
-                background_color: .2, .8, .8, 1
+                background_color: 1, 1, 1, 1
         FullImage:
             source: 'bilkent.jpg'
             size: self.texture_size
@@ -115,23 +115,25 @@ WindowManager:
             Labelc:
                 id: head
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]HEADWORD[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]HEADWORD[/b][/color]"
             Labelc:
                 id: meaning
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]MEANING[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]MEANING[/b][/color]"
             Labelc:
                 id: rand_word_label
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
             Labelc:
                 id: rand_mean_label
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
-                text_size: self.width, None
+                text_size: self.width - 10, None
                 size_hint: 1, 1
 
         GridLayout:
@@ -140,42 +142,46 @@ WindowManager:
             Labelc:
                 id: verb_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]VERB[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]VERB[/b][/color]"
             Labelc:
                 id: noun_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]NOUN[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]NOUN[/b][/color]"
             Labelc:
                 id: adj_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]ADJECTIVE[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]ADJECTIVE[/b][/color]"
 
             Labelc:
                 id: adv_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]ADVERB[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]ADVERB[/b][/color]"
 
 
             Labelc:
                 id: verb
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
             Labelc:
                 id: noun
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
             Labelc:
                 id: adj
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
             Labelc:
                 id: adv
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
 
@@ -216,11 +222,27 @@ WindowManager:
 
 <SavedWindow>:
     name: "saved"
+    canvas.before:
+        Color:
+            rgba: .85, .85, .85, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
     on_enter:
         root.my_callback()
+    scroll: scroll
     grid: grid
     GridLayout:
         cols: 1
+        GridLayout:
+            cols: 1
+            size: self.width, root.height // 8
+            size_hint_y: None
+            Button:
+                text: "[b]Saved Words[/b]"
+                markup: True
+                font_size: '25sp'
+                background_color: 0.2, 0.8, 0.8, 1
         ScrollView:
             id: scroll
             GridLayout:
@@ -228,7 +250,7 @@ WindowManager:
                 cols: 1
                 size_hint_y: None
                 spacing: 10
-                padding: 10
+
                 height: self.minimum_height
         GridLayout:
             cols: 1
@@ -272,23 +294,25 @@ WindowManager:
             Labelc:
                 id: head
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]HEADWORD[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]HEADWORD[/b][/color]"
             Labelc:
                 id: meaning
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]MEANING[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]MEANING[/b][/color]"
             Labelc:
                 id: rand_word_label
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
             Labelc:
                 id: rand_mean_label
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
-                text_size: self.width, None
+                text_size: self.width - 10, None
                 size_hint: 1, 1
 
         GridLayout:
@@ -297,42 +321,46 @@ WindowManager:
             Labelc:
                 id: verb_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]VERB[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]VERB[/b][/color]"
             Labelc:
                 id: noun_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]NOUN[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]NOUN[/b][/color]"
             Labelc:
                 id: adj_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]ADJECTIVE[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]ADJECTIVE[/b][/color]"
 
             Labelc:
                 id: adv_title
                 markup: True
-                background_color: .2, .8, .8, 1
-                text: "[b]ADVERB[/b]"
+                background_color: 1, 1, 1, 1
+                text: "[color=008080][b]ADVERB[/b][/color]"
 
 
             Labelc:
                 id: verb
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
             Labelc:
                 id: noun
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
             Labelc:
                 id: adj
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
             Labelc:
                 id: adv
-                background_color: .2, .8, .8, 1
+                markup: True
+                background_color: 1, 1, 1, 1
                 text: ""
 
 
@@ -350,19 +378,15 @@ WindowManager:
             row_force_default: True
             row_default_height: dp(70)
             Button:
+                text: "Remove the Word"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.remove_word()
+
+            Button:
                 text: "Go Back"
                 background_color: .2, .8, .8, 1
                 on_release:
                     root.delete_everything()
                     app.root.current = "saved"
                     root.manager.transition.direction = "right"
-
-
-
-
-
-
-
-
-
-
