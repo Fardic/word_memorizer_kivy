@@ -1,0 +1,368 @@
+WindowManager:
+    id:manager
+    MainWindow:
+    RandomWindow:
+    SavedWindow:
+    SavedMeaningWindow:
+
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<Labelc@Label+BackgroundColor>:
+    background_color: 0, 0, 0, 0
+
+<FullImage@Image>:
+    canvas:
+        Color:
+            rgb: (.2, .8, .8)
+        Rectangle:
+            texture: self.texture
+            size: self.width, self.height
+            pos: self.x, self.y
+
+
+<MainWindow>:
+    name: "main"
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(50)
+            Button:
+                text: ""
+                background_color: .2, .8, .8, 1
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(100)
+            Labelc:
+                text: "[b]Word Memorizer[/b]"
+                markup: True
+                size: self.texture_size
+                font_size: '30sp'
+                background_color: .2, .8, .8, 1
+        FullImage:
+            source: 'bilkent.jpg'
+            size: self.texture_size
+
+
+        GridLayout:
+            cols: 1
+
+            Button:
+                text: "[b]Memorize Random Words[/b]"
+                markup: True
+                background_color: .2, .8, .8, 1
+                on_release:
+                    app.root.current = "random"
+                    root.manager.transition.direction = "left"
+            Button:
+                text: "[b]Saved Words[/b]"
+                markup: True
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.saved_button()
+                    app.root.current = "saved"
+                    root.manager.transition.direction = "left"
+            Button:
+                text: "[b]Exit[/b]"
+                markup: True
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.exit_memorizer()
+
+<RandomWindow>:
+    name: "random"
+    rand_word_label: rand_word_label
+    rand_mean_label: rand_mean_label
+    on_pre_enter:
+        root.display_word()
+    verb:verb
+    noun:noun
+    adj: adj
+    adv: adv
+
+    GridLayout:
+        cols: 1
+        spacing: 5
+        GridLayout:
+            cols: 1
+            spacing: 5
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(50)
+            Button:
+                text: ""
+                background_color: .2, .8, .8, 1
+        GridLayout:
+            cols: 2
+            spacing: 5
+            Labelc:
+                id: head
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]HEADWORD[/b]"
+            Labelc:
+                id: meaning
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]MEANING[/b]"
+            Labelc:
+                id: rand_word_label
+                background_color: .2, .8, .8, 1
+                text: ""
+
+            Labelc:
+                id: rand_mean_label
+                background_color: .2, .8, .8, 1
+                text: ""
+                text_size: self.width, None
+                size_hint: 1, 1
+
+        GridLayout:
+            cols: 4
+            spacing: 5
+            Labelc:
+                id: verb_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]VERB[/b]"
+            Labelc:
+                id: noun_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]NOUN[/b]"
+            Labelc:
+                id: adj_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]ADJECTIVE[/b]"
+
+            Labelc:
+                id: adv_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]ADVERB[/b]"
+
+
+            Labelc:
+                id: verb
+                background_color: .2, .8, .8, 1
+                text: ""
+            Labelc:
+                id: noun
+                background_color: .2, .8, .8, 1
+                text: ""
+            Labelc:
+                id: adj
+                background_color: .2, .8, .8, 1
+                text: ""
+
+            Labelc:
+                id: adv
+                background_color: .2, .8, .8, 1
+                text: ""
+
+
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(70)
+            Button:
+                text: "Save"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.save_word()
+            Button:
+                text: "Next Word"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.display_word()
+            Button:
+                text: "Meaning"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.display_meaning()
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(70)
+            Button:
+                text: "Main Menu"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+
+
+<SavedWindow>:
+    name: "saved"
+    on_enter:
+        root.my_callback()
+    grid: grid
+    GridLayout:
+        cols: 1
+        ScrollView:
+            id: scroll
+            GridLayout:
+                id: grid
+                cols: 1
+                size_hint_y: None
+                spacing: 10
+                padding: 10
+                height: self.minimum_height
+        GridLayout:
+            cols: 1
+            size: self.width, root.height // 8
+            size_hint_y: None
+            Button:
+                text: "Main Menu"
+                background_color: 0.2, 0.8, 0.8, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "right"
+
+
+<SavedMeaningWindow>:
+    name: "saved_meaning"
+    on_pre_enter:
+        root.write_everything()
+    rand_word_label: rand_word_label
+    rand_mean_label: rand_mean_label
+    verb:verb
+    noun:noun
+    adj: adj
+    adv: adv
+
+    GridLayout:
+        cols: 1
+        spacing: 5
+        GridLayout:
+            cols: 1
+            spacing: 5
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(50)
+            Button:
+                text: ""
+                background_color: .2, .8, .8, 1
+        GridLayout:
+            cols: 2
+            spacing: 5
+            Labelc:
+                id: head
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]HEADWORD[/b]"
+            Labelc:
+                id: meaning
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]MEANING[/b]"
+            Labelc:
+                id: rand_word_label
+                background_color: .2, .8, .8, 1
+                text: ""
+
+            Labelc:
+                id: rand_mean_label
+                background_color: .2, .8, .8, 1
+                text: ""
+                text_size: self.width, None
+                size_hint: 1, 1
+
+        GridLayout:
+            cols: 4
+            spacing: 5
+            Labelc:
+                id: verb_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]VERB[/b]"
+            Labelc:
+                id: noun_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]NOUN[/b]"
+            Labelc:
+                id: adj_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]ADJECTIVE[/b]"
+
+            Labelc:
+                id: adv_title
+                markup: True
+                background_color: .2, .8, .8, 1
+                text: "[b]ADVERB[/b]"
+
+
+            Labelc:
+                id: verb
+                background_color: .2, .8, .8, 1
+                text: ""
+            Labelc:
+                id: noun
+                background_color: .2, .8, .8, 1
+                text: ""
+            Labelc:
+                id: adj
+                background_color: .2, .8, .8, 1
+                text: ""
+
+            Labelc:
+                id: adv
+                background_color: .2, .8, .8, 1
+                text: ""
+
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(70)
+
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            row_force_default: True
+            row_default_height: dp(70)
+            Button:
+                text: "Go Back"
+                background_color: .2, .8, .8, 1
+                on_release:
+                    root.delete_everything()
+                    app.root.current = "saved"
+                    root.manager.transition.direction = "right"
+
+
+
+
+
+
+
+
+
+
